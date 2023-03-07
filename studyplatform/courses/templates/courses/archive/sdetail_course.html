@@ -1,0 +1,44 @@
+<h3>{{ course.title }}</h3>
+<a href="{% url 'courses:courses-members' course.pk %}">Members:</a>
+{{ course.members.all.count }}
+<br>
+<a href="{% url 'courses:courses-members' course.pk %}">Teachers:</a>
+{{ course.teachers.all.count }}
+<br>
+<br>
+{% comment %} COURSE CONTROL PANEL {% endcomment %}
+
+{% if request.user not in course.members.all and request.user != course.owner %}
+<button type='POST'><a href="{% url 'courses:course-enroll' course.pk %}">Enroll this course</a></button>
+{% endif %}
+
+{% if request.user in course.members.all %}
+<button type='POST'><a href="{% url 'courses:course-leave' course.pk %}">Leave this course</a></button>
+{% endif %}
+
+{% comment %} TEACHERS CONTROL PANEL {% endcomment %}
+
+<br>
+<br>                
+<hr>
+Content 
+<br>
+<br>
+{% if request.user in course.members.all %}
+    {% for section in course.sections.all %}
+        <a href="">{{ section }}</a>
+        <ul>
+            {% for task in section.tasks.all %}
+                <li><a href="">{{ task }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+{% else %}
+    <p>You are not a member of this course</p>
+{% endif %}
+<hr>
+<br>
+Owner: {{ course.owner }}
+
+
+

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+</head>
+
+<body class='flex flex-col min-h-screen'>
+  <header class="py-4">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Company Name</h1>
+      <nav>
+        <ul class="flex items-center">
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">Home</a>
+          </li>
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">Courses</a>
+          </li>
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">About Us</a>
+          </li>
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">Contact</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="bg-gray-100 py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Course 1 -->
+        <a href="#" class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
+          <div class="relative">
+            <img src="https://via.placeholder.com/600x400" alt="Course Image" class="w-full h-64 object-cover">
+            <div class="absolute inset-0 bg-gray-900 bg-opacity-25 flex items-center justify-center">
+              <span class="text-white font-bold">Course Name</span>
+            </div>
+          </div>
+          <div class="p-4">
+            <h2 class="text-lg font-bold text-gray-800 mb-2">Course Name</h2>
+            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam necessitatibus voluptate perferendis eius vero, itaque doloribus ipsam excepturi aspernatur.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 font-bold">$19.99</span>
+              <span class="text-sm text-gray-500">2h 30m</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Course 2 -->
+        <a href="#" class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
+            <div class="relative">
+              <img src="https://via.placeholder.com/600x400" alt="Course Image" class="w-full h-64 object-cover">
+              <div class="absolute inset-0 bg-gray-900 bg-opacity-25 flex items-center justify-center">
+                <span class="text-white font-bold">Course Name</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h2 class="text-lg font-bold text-gray-800 mb-2">Course Name</h2>
+              <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam necessitatibus voluptate perferendis eius vero, itaque doloribus ipsam excepturi aspernatur.</p>
+              <div class="flex justify-between items-center">
+                <span class="text-gray-600 font-bold">$19.99</span>
+                <span class="text-sm text-gray-500">2h 30m</span>
+              </div>
+            </div>
+          </a>
+          
+
+        <!-- Course 3 -->
+        <a href="#" class="bg-white rounded-lg overflow-hidden shadow-md transition duration-300 hover:shadow-lg">
+          <div class="relative">
+            <img src="https://via.placeholder.com/600x400" alt="Course Image" class="w-full h-64 object-cover">
+            <div class="absolute inset-0 bg-gray-900 bg-opacity-25 flex items-center justify-center">
+              <span class="text-white font-bold">Course Name</span>
+            </div>
+          </div>
+          <div class="p-4">
+            <h2 class="text-lg font-bold text-gray-800 mb-2">Course Name</h2>
+            <p class="text-gray-600 mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit laboriosam necessitatibus voluptate perferendis eius vero, itaque doloribus ipsam excepturi aspernatur.</p>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-600 font-bold">$19.99</span>
+              <span class="text-sm text-gray-500">2h 30m</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Repeat for each course -->
+
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="bg-gray-900 text-white py-4 mt-auto">
+    <div class="container mx-auto px-4 flex justify-between">
+      <span>© 2023 Company Name. All rights reserved.</span>
+      <nav>
+        <ul class="flex items-center">
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+          </li>
+          <li class="mx-2">
+            <a href="#" class="hover:text-gray-400">Terms of Service</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+
+</html>
+
+
+
+{% extends "base.html" %}
+{% comment %} {% load tailwind_filters %} {% endcomment %}
+
+{% block content %}
+
+
+<!-- component -->
+{% comment %} <div style="max-width:700px; margin: 100px auto;">
+
+    <form class="flex items-center">   
+        <label for="voice-search" class="sr-only">Search</label>
+        <div class="relative w-full">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+            </div>
+            <input type="text" id="voice-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Mockups, Logos, Design Templates..." required="">
+            <button type="button" class="flex absolute inset-y-0 right-0 items-center pr-3">
+                <svg aria-hidden="true" class="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+        <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg aria-hidden="true" class="mr-2 -ml-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>Search
+        </button>
+    </form>
+</div> {% endcomment %}
+<div class="container mx-auto px-6 py-10 pt-5 text-center">
+    <div class="mx-auto max-w-lg">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">Search, Study, Use</h1>
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">Find the best course for yourself</h1>
+    </div>
+
+<div class="grid grid-cols-4 gap-2 pt-10">
+
+{% for course in courses %}
+    {% if course.is_active %}
+        <!-- component -->
+    <!-- This is an example component -->
+    <div class="max-w-lg mx-auto">
+        <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
+            <a href="{% url 'courses:course-detail' course.pk %}">
+                <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+            </a>
+            <div class="p-5">
+                <a href="{% url 'courses:course-detail' course.pk %}">
+                    <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">{{course.title}}</h5>
+                </a>
+                <p class="font-normal text-gray-700 mb-3">{{course.description|truncatechars:255|default:"There's no course info"}}</p>
+                <hr class='mb-3'>
+                <p class="font-normal text-gray-700 mb-2">Owner: {{course.owner}}</p>
+                <p class="font-normal text-gray-700 mb-2">Last course update date: {{course.updated_date|date:"SHORT_DATE_FORMAT"}}</p>
+                <p class="font-normal text-gray-700 mb-4">Members: {{course.members.count}}</p>
+                <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center" href="{% url 'courses:course-detail' course.pk %}">
+                    Explore
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+</div>
+
+{% endblock content %}

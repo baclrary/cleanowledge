@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-4">{{ section.title }}</h1>
+        <div class="bg-white rounded-lg shadow-lg p-4 mb-8">
+            <h2 class="text-xl font-bold mb-4">Tasks</h2>
+            <ul>
+                <li class="py-2 border-b">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold">Task 1</h3>
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">Mark as Completed</button>
+                    </div>
+                    <p class="text-gray-600 mt-2 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat turpis eu nulla molestie, vel euismod velit maximus.
+                    </p>
+                </li>
+                <li class="py-2 border-b">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold">Task 2</h3>
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">Mark as Completed</button>
+                    </div>
+                    <p class="text-gray-600 mt-2 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat turpis eu nulla molestie, vel euismod velit maximus.
+                    </p>
+                </li>
+                <li class="py-2 border-b">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-bold">Task 3</h3>
+                        <button class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700">Mark as Completed</button>
+                    </div>
+                    <p class="text-gray-600 mt-2 mb-4">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec placerat turpis eu nulla molestie, vel euismod velit maximus.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </main>
+{% endblock content %}

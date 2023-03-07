@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+    <body class="bg-gray-100">
+        <main class="container mx-auto py-8 px-4">
+            <div class="md:flex">
+                <div class="md:w-1/4">
+                    <h2 class="text-lg font-bold mb-4">Course Sections</h2>
+                    <ul class="border border-gray-400 rounded-lg divide-y divide-gray-400">
+                        {% for sec in course.sections.all %}
+                            <li class="pl-4 py-4">
+                                {% url 'courses:course-section-detail' course.id sec.slug as url %}
+                                <a href="{{ url }}"
+                                   class="{% if request.path == url %} font-bold text-blue-600 hover:text-blue-900 {% else %} text-blue-600 hover:text-blue-900 {% endif %}">Section {{ forloop.counter }}: {{ sec }}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="pl-4 py-4">
+                            <a href="{% url 'courses:course-detail' course.id %}"
+                               class="text-black-600 hover:text-red-900">Back to the course</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-3/4 md:ml-8">
+                    <h2 class="text-2xl font-bold mb-4">{{ section.title }}: Tasks</h2>
+                    <ul class="space-y-4 ">
+                        {% for task in section.tasks.all %}
+                            <li class="border border-gray-400 rounded-lg py-4 px-6 flex items-start ">
+                                <div class="bg-blue-500 rounded-full h-6 w-14 flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">{{ section.id }}.{{ forloop.counter }}</span>
+                                </div>
+                                <div class="ml-4 ">
+                                    <h3 class="font-bold">{{ task.title }}</h3>
+                                    <span class='text-gray-400 mt-2'>{{ task.task_type }}</span>
+                                    <p class="text-gray-600 mt-2">{{ task.description|truncatechars:150|default:"There's no course info"|safe }}</p>
+                                    <div class="flex  items-center mt-4">
+                                        <div>
+                                            <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
+                                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Learn</button>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <button class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-green-400">
+                                                Mark as Complete
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock content %}
+{% comment %} <li class="border border-gray-400 rounded-lg py-4 px-6 flex items-start">
+    <div class="container mx-auto px-4 py-8">
+        <div class="md:flex md:justify-between md:items-center mb-8">
+            <h1 class="text-2xl font-bold">{{ section.title }}</h1>
+            <a href="#" class="text-gray-500 hover:text-gray-700">Back to course</a>
+        </div>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for task in section.tasks.all %}
+                <li class="p-4 bg-white rounded-lg shadow">
+                    <div class="flex items-center mb-2">
+                        <span class="inline-block bg-indigo-500 text-white font-bold rounded-full text-center w-6 h-6 mr-2">{{ task.number }}</span>
+                        <h2 class="text-lg font-bold">{{ task.title }}</h2>
+                    </div>
+                    <p class="text-gray-700 leading-loose">{{ task.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</li> {% endcomment %}
