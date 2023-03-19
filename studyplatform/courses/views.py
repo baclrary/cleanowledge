@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
-from .forms import CourseModelForm
+from .forms import CourseCreateModelForm
 from .models import Course, Section, Task
 from users.models import User
 
@@ -30,7 +30,7 @@ class CourseListView(generic.list.ListView, LoginRequiredMixin):
 
 class CourseCreateView(generic.CreateView, LoginRequiredMixin):
     template_name = 'courses/create_course.html'
-    form_class = CourseModelForm
+    form_class = CourseCreateModelForm
 
     def form_valid(self, form):
         instance = form.save(commit=False)

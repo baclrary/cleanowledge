@@ -1,19 +1,20 @@
 from django import forms
 from .models import Course
 from users.models import User
+from ckeditor.widgets import CKEditorWidget
 
 
-class CourseModelForm(forms.ModelForm):
+# rename into createcoursemodelform
+class CourseCreateModelForm(forms.ModelForm):
+    description = CKEditorWidget(config_name='create_course_form_description')
+
     class Meta:
         model = Course
-        fields = (
-            'owner',
-            'title',
-            'is_active',
-        )
+        fields = ['title', 'description', 'is_active']
+        labels = {
+            "is_active": "Activate",
+        }
 
-
-# class CourseAddTeacherModelForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ('email', )
+        # widgets = {
+        #     'description': forms.Textarea(attrs={'placeholder': 'sds'})
+        # }

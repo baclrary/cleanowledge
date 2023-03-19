@@ -14,7 +14,8 @@ from users.models import User
 class Course(models.Model):
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=120, blank=False, null=False)
-    description = RichTextField(blank=True, max_length=10000)
+    description = RichTextField(
+        blank=True, max_length=10000, config_name='create_course_form_description')
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=False)
