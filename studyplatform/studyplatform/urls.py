@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 from courses.views import HomePage, AboutPage, UpdatesPage
 
 urlpatterns = [
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path("", HomePage.as_view(), name='home'),
     path('courses/', include('courses.urls')),
