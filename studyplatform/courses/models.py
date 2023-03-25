@@ -21,6 +21,8 @@ class Course(models.Model):
     cover = models.ImageField(
         default='default/default_course_cover.jpeg', upload_to='course_covers/%Y/%m/%d/', blank=True, max_length=255)
 
+    # вирішити чи буду я видаляти і сам об'єкт в базі після видалення з списку, чи ні
+
     members = models.ManyToManyField(
         "users.User", related_name='members', blank=True)
     teachers = models.ManyToManyField(
@@ -67,9 +69,12 @@ class Task(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title + '-' + str(self.pk))
         return super().save(*args, **kwargs)
-        # self.slug = slugify(self.title + '-' + str(self.id))
 
 
 class Goal(models.Model):
-    text = models.CharField(max_length=1000)
+    title = models.CharField(max_length=250)
+    text = models.TextField(max_length=1000, blank=True)
     # icon = models.ImageField(upload_to='icons/user_icons')
+
+    def __str__(self):
+        return self.title
