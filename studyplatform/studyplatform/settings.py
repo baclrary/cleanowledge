@@ -149,7 +149,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 MEDIA_URL = '/assets/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'assets')
+MEDIA_ROOT = os.path.join(STATIC_ROOT, 'assets')
 
 
 # CRISPY

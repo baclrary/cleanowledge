@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views import generic
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
@@ -35,17 +35,21 @@ class CourseCreateView(generic.CreateView, LoginRequiredMixin):
     def form_valid(self, form):
         instance = form.save(commit=False)
         instance.user = self.request.user
+        instance.owner = self.request.user
+        # if form.is_valid():
         instance.save()
         self.product = instance
         self.product.members.add(instance.owner)
         self.product.teachers.add(instance.owner)
-        return super(CourseCreateView, self).form_valid(form)
+        # return super(CourseCreateView, self).form_valid(form)
+        # return HttpResponseRedirect("/posts/{id}/".format(id= post.id))
+        return HttpResponseRedirect(reverse('courses:course-detail', kwargs={'pk': self.product.pk}))
 
-    def get_success_url(self):
+    # def get_success_url(self):
         # return reverse('courses:course-create-success', kwargs={'course': self.product})
         # return render(self.request, 'courses:course-create-success', context={self.product})
         # return redirect('courses:course-create-success', context_object_name='course')
-        return reverse('courses:courses')
+        # return reverse('courses:course-detail', self.product.id)
 
 
 class CourseCreateSuccess(generic.TemplateView):

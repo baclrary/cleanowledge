@@ -8,7 +8,12 @@ from ckeditor.fields import RichTextField
 
 from users.models import User
 
-# Create your models here.
+
+# def upload_path(instance, filename):
+# title = ''
+# if " " in instance.title:
+#     title = instance.title.replace(" ", "-")
+# return f'course_covers/%Y/%m/%d/{instance.pk}'
 
 
 class Course(models.Model):
@@ -21,7 +26,7 @@ class Course(models.Model):
     is_active = models.BooleanField(default=False)
     # password = models.CharField(blank=True, max_length=50)
     cover = models.ImageField(
-        default='default/default_course_cover.jpeg', upload_to=f'course_covers/%Y/%m/%d', blank=True, max_length=255)
+        default='default/default_course_cover.jpeg', upload_to='course_covers/%Y/%m/%d/', blank=True, max_length=255)
 
     members = models.ManyToManyField(
         "users.User", related_name='members', blank=True)
@@ -32,6 +37,7 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
+# f'course_covers/%Y/%m/%d/{owner.name}-{title.name}'
 
 
 class Section(models.Model):
