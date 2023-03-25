@@ -41,15 +41,7 @@ class CourseCreateView(generic.CreateView, LoginRequiredMixin):
         self.product = instance
         self.product.members.add(instance.owner)
         self.product.teachers.add(instance.owner)
-        # return super(CourseCreateView, self).form_valid(form)
-        # return HttpResponseRedirect("/posts/{id}/".format(id= post.id))
         return HttpResponseRedirect(reverse('courses:course-detail', kwargs={'pk': self.product.pk}))
-
-    # def get_success_url(self):
-        # return reverse('courses:course-create-success', kwargs={'course': self.product})
-        # return render(self.request, 'courses:course-create-success', context={self.product})
-        # return redirect('courses:course-create-success', context_object_name='course')
-        # return reverse('courses:course-detail', self.product.id)
 
 
 class CourseCreateSuccess(generic.TemplateView):

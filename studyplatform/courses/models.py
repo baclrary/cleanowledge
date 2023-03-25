@@ -9,13 +9,6 @@ from ckeditor.fields import RichTextField
 from users.models import User
 
 
-# def upload_path(instance, filename):
-# title = ''
-# if " " in instance.title:
-#     title = instance.title.replace(" ", "-")
-# return f'course_covers/%Y/%m/%d/{instance.pk}'
-
-
 class Course(models.Model):
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=120, blank=False, null=False)
@@ -32,12 +25,12 @@ class Course(models.Model):
         "users.User", related_name='members', blank=True)
     teachers = models.ManyToManyField(
         "users.User", related_name='teachers', blank=True)
-
+    goals = models.ManyToManyField(
+        "Goal", related_name='goals', blank=True)
     sections = models.ManyToManyField('Section', blank=True)
 
     def __str__(self):
         return self.title
-# f'course_covers/%Y/%m/%d/{owner.name}-{title.name}'
 
 
 class Section(models.Model):
@@ -75,3 +68,8 @@ class Task(models.Model):
         self.slug = slugify(self.title + '-' + str(self.pk))
         return super().save(*args, **kwargs)
         # self.slug = slugify(self.title + '-' + str(self.id))
+
+
+class Goal(models.Model):
+    text = models.CharField(max_length=1000)
+    # icon = models.ImageField(upload_to='icons/user_icons')
