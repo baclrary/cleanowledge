@@ -1,13 +1,9 @@
 from django.db import models
 
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
 
 from users.models import User
-
 
 class Course(models.Model):
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
