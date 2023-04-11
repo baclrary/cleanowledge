@@ -27,3 +27,10 @@ DJANGO_SETTINGS_MODULE=studyplatform.settings
 # for dev
 DJANGO_SETTINGS_MODULE=studyplatform.dev_settings
 ```
+
+## Usage
+
+Start server:
+```bash
+pipenv run dev-server
+```
