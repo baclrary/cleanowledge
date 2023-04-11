@@ -23,7 +23,7 @@ class Course(models.Model):
     members = models.ManyToManyField("users.User", related_name="members", blank=True)
     teachers = models.ManyToManyField("users.User", related_name="teachers", blank=True)
     goals = models.ManyToManyField("Goal", related_name="goals", blank=True)
-    sections = models.ManyToManyField("Section", blank=True)
+    # sections = models.ManyToManyField("Section", blank=True)
 
     def __str__(self):
         return self.title
@@ -32,6 +32,7 @@ class Course(models.Model):
 class Section(models.Model):
     # i don't link it with course owner, because I will have other teachers create sections
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sections')
     title = models.CharField(max_length=120)
     tasks = models.ManyToManyField("Task", blank=True)
     slug = models.SlugField(null=False)
@@ -40,7 +41,7 @@ class Section(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("courses:section-detail", kwargs={"pk": self.owner.pk, "spk": self.pk})
+        return reverse("courses:section-detail", kwargs={"spk": self.pk, "pk": self.course.pk})
 
 
 class Task(models.Model):

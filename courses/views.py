@@ -61,12 +61,10 @@ class CourseMembersDetailView(generic.detail.DetailView, LoginRequiredMixin):
     model = Course
 
 
-# Sections
-
-
+# SECTIONS #
 class SectionListView(generic.ListView):
     model = Section
-    context_object_name = "section"
+    context_object_name = "sections"
     template_name = "courses/section/sections_list.html"
 
     def get_context_data(self, **kwargs):
@@ -80,17 +78,17 @@ class SectionListView(generic.ListView):
         return course.sections.all()
 
 
-class SectionDetailView(generic.detail.DetailView):
+class SectionDetailView(generic.DetailView):
     model = Section
     context_object_name = "section"
     template_name = "courses/section/section_detail.html"
 
+    def get_object(self):
+        return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        section = get_object_or_404(Section, id=self.kwargs["spk"])
-        context["course"] = course
-        context["section"] = section
+        context["course"] = self.object.course
         return context
 
 
@@ -115,12 +113,12 @@ class SectionUpdateView(generic.UpdateView):
     form_class = SectionForm
     template_name = "courses/section/section_update.html"
 
+    def get_object(self):
+        return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        section = get_object_or_404(Section, id=self.kwargs["spk"])
-        context["course"] = course
-        context["section"] = section
+        context["course"] = self.object.course
         return context
 
 
@@ -129,20 +127,17 @@ class SectionDeleteView(generic.DeleteView):
     success_url = reverse_lazy("courses:sections")
     template_name = "courses/section/section_confirm_delete.html"
 
+    # link 'cancel' button in template with a detail view
+    def get_object(self):
+        return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        section = get_object_or_404(Section, id=self.kwargs["spk"])
-        context["course"] = course
-        context["section"] = section
+        context["course"] = self.object.course
         return context
 
-
-def section_detail_view(request, pk, slug):
-    course = Course.objects.get(id=pk)
-    section = course.sections.get(slug=slug)
-    print(request.path)
-    return render(request, "courses/section_detail.html", context={"section": section, "course": course})
+    def get_success_url(self):
+        return reverse_lazy('courses:sections', kwargs={'pk': self.kwargs['pk']})
 
 
 def task_detail_view(request, pk, slug):
@@ -198,7 +193,6 @@ def remove_member(request, pk, mpk):
     course.members.remove(member)
 
     return HttpResponse(f"Student {member} was expelled")
-
 
 # def ban_member(request, pk, spk):
 #     course = Course.objects.get(pk=pk)

@@ -25,4 +25,4 @@ class CourseCreateModelForm(forms.ModelForm):
 class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ["owner", "title", "tasks", "slug"]
+        fields = ["owner", "course", "title", "tasks", "slug"]
