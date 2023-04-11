@@ -3,11 +3,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views import generic
 
 from users.models import User
 
-from .forms import CourseCreateModelForm, SectionForm
+from .forms import CourseCreateModelForm, SectionForm, SectionCreateForm
 from .models import Course, Section, Task
 
 
@@ -82,6 +83,7 @@ class SectionDetailView(generic.DetailView):
     model = Section
     context_object_name = "section"
     template_name = "courses/section/section_detail.html"
+    # template_name = "courses/section/section_detail.html"
 
     def get_object(self):
         return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
@@ -94,7 +96,7 @@ class SectionDetailView(generic.DetailView):
 
 class SectionCreateView(generic.CreateView):
     model = Section
-    form_class = SectionForm
+    form_class = SectionCreateForm
     template_name = "courses/section/section_create.html"
 
     def get_context_data(self, **kwargs):
@@ -106,6 +108,13 @@ class SectionCreateView(generic.CreateView):
     def get_queryset(self):
         course = get_object_or_404(Course, id=self.kwargs["pk"])
         return course.sections.all()
+
+    def form_valid(self, form):
+        course = get_object_or_404(Course, id=self.kwargs["pk"])
+        form.instance.course = course
+        form.instance.owner = self.request.user
+        form.instance.slug = slugify(form.cleaned_data["title"])
+        return super().form_valid(form)
 
 
 class SectionUpdateView(generic.UpdateView):

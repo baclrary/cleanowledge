@@ -20,7 +20,7 @@ urlpatterns = [
     path("<int:pk>/sections/<int:spk>/update/", views.SectionUpdateView.as_view(), name="section-update"),
     path("<int:pk>/sections/<int:spk>/delete/", views.SectionDeleteView.as_view(), name="section-delete"),
     # path("<int:pk>/sections/<slug:slug>/", views.section_detail_view, name="course-section-detail"),
-    # path("<int:pk>/tasks/<slug:slug>/", views.task_detail_view, name="course-task-detail"),
+    path("<int:pk>/tasks/<slug:slug>/", views.task_detail_view, name="course-task-detail"),
     #     path('course_create_success', views.CourseCreateSuccess.as_view(),
     #          name='course-create-success')
 ]

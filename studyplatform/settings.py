@@ -173,7 +173,7 @@ CKEDITOR_CONFIGS = {
         "removePlugins": ["elementspath", "resize"],
         "editorplaceholder": "Write short introduction to your course",
     },
-    "zztest": {
+    "default": {
         "toolbar": "Custom",
         "toolbar_Custom": [
             ["Bold", "Italic", "Underline"],

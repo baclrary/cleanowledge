@@ -1,23 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
     <body class="bg-gray-100">
-        {% comment %} <header class="bg-white shadow-sm">
-        <div class="container mx-auto py-4 px-8">
-            <a href="#" class="text-gray-700 font-bold text-lg">Learn React</a>
-            <nav class="inline-block ml-4">
-                <a href="#" class="text-gray-600 hover:text-gray-800 font-bold mx-3">Home</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 font-bold mx-3">Modules</a>
-                <a href="#" class="text-gray-600 hover:text-gray-800 font-bold mx-3">About</a>
-            </nav>
-        </div>
-        </header> {% endcomment %}
         <main class="container mx-auto py-8 px-8">
             <section class="mb-20">
                 <div class="bg-white rounded-lg shadow-lg p-8">
                     <h2 class="text-2xl font-bold mb-4">Welcome to "{{ course.title }}" course</h2>
                     <div class="text-lg mb-6">{{ course.description|safe }}</div>
                     {% if request.user in course.members.all and course.sections.all.count > 0 %}
-                        <a href="{% url 'courses:course-section-detail' course.pk course.sections.first.slug %}"
+                        <a href="{% url 'courses:section-detail' course.pk course.sections.first.id %}"
                            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300 mt-6 mr-2">Continue studying</a>
                     {% endif %}
                     <a href="{% url 'courses:courses-members' course.pk %}"

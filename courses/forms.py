@@ -26,3 +26,9 @@ class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ["owner", "course", "title", "tasks", "slug"]
+
+
+class SectionCreateForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ["title"]
