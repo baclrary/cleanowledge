@@ -4,8 +4,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required, permission_required
+from django.urls import reverse_lazy
 
-from .forms import CourseCreateModelForm
+from .forms import CourseCreateModelForm, SectionForm
 from .models import Course, Section, Task
 from users.models import User
 
@@ -60,10 +61,80 @@ class CourseMembersDetailView(generic.detail.DetailView, LoginRequiredMixin):
     model = Course
 
 
-# class SectionDetailView(generic.detail.DetailView):
-#     template_name = 'courses/task_article_detail.html'
-#     context_object_name = 'section'
-#     model = Section
+# Sections
+
+class SectionListView(generic.ListView):
+    model = Section
+    context_object_name = 'section'
+    template_name = 'courses/section/sections_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        context['course'] = course
+        return context
+
+    def get_queryset(self):
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        return course.sections.all()
+
+
+class SectionDetailView(generic.detail.DetailView):
+    model = Section
+    context_object_name = 'section'
+    template_name = 'courses/section/section_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        section = get_object_or_404(Section, id=self.kwargs['spk'])
+        context['course'] = course
+        context['section'] = section
+        return context
+
+
+class SectionCreateView(generic.CreateView):
+    model = Section
+    form_class = SectionForm
+    template_name = 'courses/section/section_create.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        context['course'] = course
+        return context
+
+    def get_queryset(self):
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        return course.sections.all()
+
+
+class SectionUpdateView(generic.UpdateView):
+    model = Section
+    form_class = SectionForm
+    template_name = 'courses/section/section_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        section = get_object_or_404(Section, id=self.kwargs['spk'])
+        context['course'] = course
+        context['section'] = section
+        return context
+
+
+class SectionDeleteView(generic.DeleteView):
+    model = Section
+    success_url = reverse_lazy('courses:sections')
+    template_name = 'courses/section/section_confirm_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        course = get_object_or_404(Course, id=self.kwargs['pk'])
+        section = get_object_or_404(Section, id=self.kwargs['spk'])
+        context['course'] = course
+        context['section'] = section
+        return context
 
 
 def section_detail_view(request, pk, slug):
@@ -127,7 +198,6 @@ def remove_member(request, pk, mpk):
 
     return HttpResponse(f"Student {member} was expelled")
 
-
 # def ban_member(request, pk, spk):
 #     course = Course.objects.get(pk=pk)
 #     student = User.objects.get(id=spk)
@@ -136,4 +206,4 @@ def remove_member(request, pk, mpk):
 
 #     return HttpResponse(f"Student {student} was expelled")
 
-    # user = User.objects.get(id=pk)
+# user = User.objects.get(id=pk)

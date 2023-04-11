@@ -16,7 +16,7 @@
                         </div>
                     {% elif field.name == 'description' %}
                         {{ form.media }}
-                        <p class='block text-gray-700 text-sm font-bold mb-2'>{{ field.name|capfirst }}</p>
+                        <p class='block text-gray-700 text-sm font-bold mb-2'>Short {{ field.name|capfirst }}</p>
                         <div class=''>{{ field }}</div>
                     {% else %}
                         <div class='mb-3'>{{ field|as_crispy_field }}</div>

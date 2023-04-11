@@ -1,5 +1,5 @@
 from django import forms
-from .models import Course
+from .models import Course, Section
 from users.models import User
 from ckeditor.widgets import CKEditorWidget
 
@@ -18,3 +18,9 @@ class CourseCreateModelForm(forms.ModelForm):
         # widgets = {
         #     'description': forms.Textarea(attrs={'placeholder': 'sds'})
         # }
+
+
+class SectionForm(forms.ModelForm):
+    class Meta:
+        model = Section
+        fields = ['owner', 'title', 'tasks', 'slug']

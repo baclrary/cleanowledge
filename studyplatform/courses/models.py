@@ -2,6 +2,7 @@ from django.db import models
 
 from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from django.urls import reverse
 
 from users.models import User
 
@@ -41,6 +42,9 @@ class Section(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('courses:section-detail', kwargs={'pk': self.owner.pk, 'spk': self.pk})
 
 
 class Task(models.Model):
