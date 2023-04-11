@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courses', '0009_auto_20230223_1836'),
+        ("courses", "0009_auto_20230223_1836"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='course',
-            name='sections',
-            field=models.ManyToManyField(blank=True, to='courses.Section'),
+            model_name="course",
+            name="sections",
+            field=models.ManyToManyField(blank=True, to="courses.Section"),
         ),
     ]

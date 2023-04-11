@@ -5,16 +5,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('courses', '0003_course_members'),
+        ("courses", "0003_course_members"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='teachers',
-            field=models.ManyToManyField(blank=True, related_name='teachers', to=settings.AUTH_USER_MODEL),
+            model_name="course",
+            name="teachers",
+            field=models.ManyToManyField(blank=True, related_name="teachers", to=settings.AUTH_USER_MODEL),
         ),
     ]

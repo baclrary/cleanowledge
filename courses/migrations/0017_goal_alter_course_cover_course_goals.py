@@ -4,28 +4,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courses', '0016_alter_section_tasks_alter_task_slug'),
+        ("courses", "0016_alter_section_tasks_alter_task_slug"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Goal',
+            name="Goal",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=250)),
-                ('text', models.TextField(blank=True, max_length=1000)),
+                ("id", models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name="ID")),
+                ("title", models.CharField(max_length=250)),
+                ("text", models.TextField(blank=True, max_length=1000)),
             ],
         ),
         migrations.AlterField(
-            model_name='course',
-            name='cover',
-            field=models.ImageField(blank=True, default='default/default_course_cover.jpeg', max_length=255, upload_to='course_covers/%Y/%m/%d/'),
+            model_name="course",
+            name="cover",
+            field=models.ImageField(
+                blank=True,
+                default="default/default_course_cover.jpeg",
+                max_length=255,
+                upload_to="course_covers/%Y/%m/%d/",
+            ),
         ),
         migrations.AddField(
-            model_name='course',
-            name='goals',
-            field=models.ManyToManyField(blank=True, related_name='goals', to='courses.goal'),
+            model_name="course",
+            name="goals",
+            field=models.ManyToManyField(blank=True, related_name="goals", to="courses.goal"),
         ),
     ]

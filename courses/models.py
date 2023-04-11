@@ -1,32 +1,29 @@
-from django.db import models
-
-from django.utils.text import slugify
 from ckeditor.fields import RichTextField
+from django.db import models
 from django.urls import reverse
+from django.utils.text import slugify
 
 from users.models import User
+
 
 class Course(models.Model):
     owner = models.ForeignKey("users.User", on_delete=models.CASCADE)
     title = models.CharField(max_length=120, blank=False, null=False)
-    description = RichTextField(
-        blank=True, max_length=10000, config_name='create_course_form_description')
+    description = RichTextField(blank=True, max_length=10000, config_name="create_course_form_description")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=False)
     # password = models.CharField(blank=True, max_length=50)
     cover = models.ImageField(
-        default='default/default_course_cover.jpeg', upload_to='course_covers/%Y/%m/%d/', blank=True, max_length=255)
+        default="default/default_course_cover.jpeg", upload_to="course_covers/%Y/%m/%d/", blank=True, max_length=255
+    )
 
     # вирішити чи буду я видаляти і сам об'єкт в базі після видалення з списку, чи ні
 
-    members = models.ManyToManyField(
-        "users.User", related_name='members', blank=True)
-    teachers = models.ManyToManyField(
-        "users.User", related_name='teachers', blank=True)
-    goals = models.ManyToManyField(
-        "Goal", related_name='goals', blank=True)
-    sections = models.ManyToManyField('Section', blank=True)
+    members = models.ManyToManyField("users.User", related_name="members", blank=True)
+    teachers = models.ManyToManyField("users.User", related_name="teachers", blank=True)
+    goals = models.ManyToManyField("Goal", related_name="goals", blank=True)
+    sections = models.ManyToManyField("Section", blank=True)
 
     def __str__(self):
         return self.title
@@ -34,23 +31,21 @@ class Course(models.Model):
 
 class Section(models.Model):
     # i don't link it with course owner, because I will have other teachers create sections
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
-    tasks = models.ManyToManyField('Task', blank=True)
+    tasks = models.ManyToManyField("Task", blank=True)
     slug = models.SlugField(null=False)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('courses:section-detail', kwargs={'pk': self.owner.pk, 'spk': self.pk})
+        return reverse("courses:section-detail", kwargs={"pk": self.owner.pk, "spk": self.pk})
 
 
 class Task(models.Model):
     # i don't link it with course owner, because I will have other teachers create tasks
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     task_type = models.CharField(max_length=20)
     title = models.CharField(max_length=120)
     slug = models.SlugField(null=False, blank=True)
@@ -67,7 +62,7 @@ class Task(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title + '-' + str(self.pk))
+        self.slug = slugify(self.title + "-" + str(self.pk))
         return super().save(*args, **kwargs)
 
 

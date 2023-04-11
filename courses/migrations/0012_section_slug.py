@@ -4,16 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courses', '0011_auto_20230223_1839'),
+        ("courses", "0011_auto_20230223_1839"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='section',
-            name='slug',
-            field=models.SlugField(default='kek1'),
+            model_name="section",
+            name="slug",
+            field=models.SlugField(default="kek1"),
             preserve_default=False,
         ),
     ]

@@ -4,22 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('users', '0003_alter_user_options'),
+        ("users", "0003_alter_user_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='user',
-            name='first_name',
-            field=models.CharField(default='', max_length=50),
+            model_name="user",
+            name="first_name",
+            field=models.CharField(default="", max_length=50),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='user',
-            name='middle_name',
-            field=models.CharField(blank=True, default='', max_length=50),
+            model_name="user",
+            name="middle_name",
+            field=models.CharField(blank=True, default="", max_length=50),
             preserve_default=False,
         ),
     ]

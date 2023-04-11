@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courses', '0012_section_slug'),
+        ("courses", "0012_section_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='slug',
+            model_name="task",
+            name="slug",
             field=models.SlugField(default=1),
             preserve_default=False,
         ),

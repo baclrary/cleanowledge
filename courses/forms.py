@@ -1,16 +1,18 @@
-from django import forms
-from .models import Course, Section
-from users.models import User
 from ckeditor.widgets import CKEditorWidget
+from django import forms
+
+from users.models import User
+
+from .models import Course, Section
 
 
 # rename into createcoursemodelform
 class CourseCreateModelForm(forms.ModelForm):
-    description = CKEditorWidget(config_name='create_course_form_description')
+    description = CKEditorWidget(config_name="create_course_form_description")
 
     class Meta:
         model = Course
-        fields = ['title', 'description', 'is_active']
+        fields = ["title", "description", "is_active"]
         labels = {
             "is_active": "Activate",
         }
@@ -23,4 +25,4 @@ class CourseCreateModelForm(forms.ModelForm):
 class SectionForm(forms.ModelForm):
     class Meta:
         model = Section
-        fields = ['owner', 'title', 'tasks', 'slug']
+        fields = ["owner", "title", "tasks", "slug"]
