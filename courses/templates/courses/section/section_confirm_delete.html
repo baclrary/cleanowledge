@@ -1,13 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto p-4">
-    <h1 class="text-xl mb-4">Delete Section</h1>
-    <p>Are you sure you want to delete the section "{{ section.title }}"?</p>
-    <form method="post">
-        {% csrf_token %}
-        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2">Yes, delete</button>
-        <a href="{% url 'courses:section-detail' course.pk section.pk %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancel</a>
-    </form>
-</div>
+
+    <div class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden mt-9">
+        <div class="px-4 py-8 sm:px-10">
+            <div class="heading text-center font-bold text-2xl m-5 text-gray-800">Delete Section</div>
+                <p>Are you sure you want to delete the section "{{ section.title }}"?</p>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mt-4">
+                        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2">Yes, delete</button>
+                        <a href="{% url 'courses:section-detail' course.pk section.pk %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">Cancel</a>
+                    </div>
+                </form>
+        </div>
+    </div>
 {% endblock %}

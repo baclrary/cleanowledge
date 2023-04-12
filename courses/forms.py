@@ -32,3 +32,5 @@ class SectionCreateForm(forms.ModelForm):
     class Meta:
         model = Section
         fields = ["title"]
+
+

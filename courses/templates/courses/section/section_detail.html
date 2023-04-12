@@ -20,7 +20,17 @@
                     </ul>
                 </div>
                 <div class="md:w-3/4 md:ml-8">
-                    <h2 class="text-2xl font-bold mb-4">{{ section.title }}: Tasks</h2>
+                    <h2 class="text-2xl font-bold">{{ section.title }}: Tasks</h2>
+                    {% if course.owner == request.user or task.owner == request.user %}
+                    <div class="bg-gray-100 p-4 rounded">
+                        <a href="#">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Add new task</button>
+                        </a>
+                        <a href="{% url 'courses:sections' course.pk %}">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Manage sections</button>
+                        </a>
+                    </div>
+                    {% endif %}
                     <ul class="space-y-4 ">
                         {% for task in section.tasks.all %}
                             <li class="border border-gray-400 rounded-lg py-4 px-6 flex items-start ">
@@ -31,17 +41,34 @@
                                     <h3 class="font-bold">{{ task.title }}</h3>
                                     <span class='text-gray-400 mt-2'>{{ task.task_type }}</span>
                                     <p class="text-gray-600 mt-2">{{ task.description|truncatechars:150|default:"There's no course info"|safe }}</p>
-                                    <div class="flex  items-center mt-4">
-                                        <div>
-                                            <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
-                                                <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Learn</button>
-                                            </a>
+                                    <div class="flex justify-between items-center mt-4">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
+                                                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Learn</button>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <button class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-green-400">
+                                                    Mark as Complete
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <button class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-green-400">
-                                                Mark as Complete
-                                            </button>
+                                        {% if course.owner == request.user or task.owner == request.user %}
+                                        {# move to the right side later #}
+                                        <div class="flex items-center">
+                                            <div>
+                                                <a href="#">
+                                                    <button class="bg-yellow-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-yellow-700">Update Task</button>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="#">
+                                                    <button class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-red-700">Delete Task</button>
+                                                </a>
+                                            </div>
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </li>

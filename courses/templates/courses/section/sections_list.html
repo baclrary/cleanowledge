@@ -1,17 +1,59 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mx-auto p-4">
-    <h1 class="text-xl mb-4">Sections</h1>
-    <a href="{% url 'courses:section-create' course.id %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create Section</a>
-    <ul class="mt-4">
-        {% for section in sections %}
-        <li class="bg-gray-100 p-4 rounded mb-2">
-            <a class="text-blue-500 hover:text-blue-800" href="{% url 'courses:section-detail' course.pk section.pk %}">{{ section.title }}</a>
-            <a href="{% url 'courses:section-update' course.pk section.pk  %}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">Update</a>
-            <a href="{% url 'courses:section-delete' course.pk section.pk  %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
+    <div class="bg-white rounded-lg shadow sm:mx-auto m-auto">
+        <div class="container flex flex-col items-center justify-center w-full mx-auto bg-white rounded-lg shadow dark:bg-gray-800">
+            <div class="w-full px-4 py-5 border-b sm:px-6">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                    Course sections
+                </h3>
+                <p class="max-w-2xl mt-1 text-sm text-gray-500 dark:text-gray-200">
+                    Details about course sections.
+                </p>
+            </div>
+            <ul class="flex flex-col divide-y divide">
+                {% for section in sections %}
+                    <li class="flex flex-row">
+                        <div class="flex items-center flex-1 p-4 cursor-pointer select-none">
+
+                            <div class="flex flex-col items-center justify-center w-10 h-10 mr-4">
+                                <a href="#" class="relative block">
+                                    <img alt="userprofile" src="/images/person/6.jpg"
+                                         class="mx-auto object-cover rounded-full h-10 w-10 "/>
+                                </a>
+                            </div>
+                            <div class="flex-1 pl-1 mr-16">
+                                <div class="font-medium dark:text-white">
+                                    {{ section.title|truncatechars:50}}
+                                </div>
+                                <div class="text-sm text-gray-600 dark:text-gray-200">
+                                    Created by: {{ section.owner }}
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-600 dark:text-gray-200">
+                                Tasks: {{ section.tasks.all.count }}
+                            </div>
+                            <button class="flex justify-end w-24 text-right">
+                                <svg width="20" fill="currentColor" height="20"
+                                     class="text-gray-500 hover:text-gray-800 dark:hover:text-white dark:text-gray-200"
+                                     viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </div>
+                        <li class="p-4 rounded mb-4">
+                            <a href="{% url 'courses:section-detail' course.pk section.pk %}"
+                               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">View</a>
+                            <a href="{% url 'courses:section-update' course.pk section.pk %}"
+                               class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded mr-2">Update</a>
+                            <a href="{% url 'courses:section-delete' course.pk section.pk %}"
+                               class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</a>
+                        </li>
+                    </li>
+                {% endfor %}
+            <a href="{{request.META.HTTP_REFERER}}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">Back to the course</a>
+            </ul>
+        </div>
+    </div>
 {% endblock %}

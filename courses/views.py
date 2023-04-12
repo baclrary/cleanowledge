@@ -119,8 +119,15 @@ class SectionCreateView(generic.CreateView):
 
 class SectionUpdateView(generic.UpdateView):
     model = Section
-    form_class = SectionForm
+    form_class = SectionCreateForm
     template_name = "courses/section/section_update.html"
+
+    def form_valid(self, form):
+        course = get_object_or_404(Course, id=self.kwargs["pk"])
+        form.instance.course = course
+        form.instance.owner = self.request.user
+        form.instance.slug = slugify(form.cleaned_data["title"])
+        return super().form_valid(form)
 
     def get_object(self):
         return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
