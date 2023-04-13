@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load tailwind_filters %}
+{% block content %}
+    <div class="container mx-auto mt-10 ">
+        <div class="bg-white shadow-md rounded p-6 w-full lg:w-3/4 mx-auto sm:mx-auto">
+            <h2 class="text-xl font-bold mb-6">Edit Task</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.task_type.id_for_label }}">
+                        Task Type
+                    </label>
+                    <div class="inline-block relative w-full">
+                        {{ form.task_type|add_class:"block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" }}
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.title.id_for_label }}">
+                        Title
+                    </label>
+                    {{ form.title|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+                    {{ form.description|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.active.id_for_label }}">
+                        Active
+                    </label>
+                    {{ form.active|add_class:"mt-1" }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.task_files.id_for_label }}">
+                        Task Files
+                    </label>
+                    {{ form.task_files|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.members_can_attach_files.id_for_label }}">
+                        Members can attach files
+                    </label>
+                    {{ form.members_can_attach_files|add_class:"mt-1" }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.members_files.id_for_label }}">
+                        Members Files
+                    </label>
+                    {{ form.members_files|add_class:"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" }}
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                        Save
+                    </button>
+                <a href="{% url 'courses:section-detail' pk=section.course.pk spk=section.pk %}">
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                        Back to the section
+                    </button>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

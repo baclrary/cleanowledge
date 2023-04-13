@@ -4,7 +4,9 @@
         <main class="container mx-auto py-8">
             <div class="max-w-2xl mx-auto">
                 <h1 class="text-3xl font-bold text-center mb-8">{{ task.title }}</h1>
-                <div class="prose max-w-none">{{ task.description|safe }}</div>
+                <div class="prose max-w-none">
+                    {{ task.description|safe }}
+                </div>
                 {% comment %} Video in article {% endcomment %}
                 {% comment %} <div class="md:w-1/2">
                 <div class="max-w-2xl mx-auto">
@@ -16,14 +18,15 @@
                 </div> {% endcomment %}
                 <div class="flex items-center mt-7">
                     <div>
-                        <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
+{#                        {% url 'courses:task-detail' section.course.pk section.pk task.slug %}#}
+                        <a href="{% url 'courses:task-detail' section.course.pk section.pk task.slug %}">
                             <button class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-400 mr-4">
                                 Mark as complete
                             </button>
                         </a>
                     </div>
                     <div>
-                        <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
+                        <a href="{% url 'courses:task-detail' section.course.pk section.pk task.slug %}">
                             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-400">Give feedback</button>
                         </a>
                     </div>

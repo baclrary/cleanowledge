@@ -23,8 +23,11 @@
                     <h2 class="text-2xl font-bold">{{ section.title }}: Tasks</h2>
                     {% if course.owner == request.user or task.owner == request.user %}
                     <div class="bg-gray-100 p-4 rounded mb-2 mt-1">
-                        <a href="#">
+                        <a href="{% url 'courses:task-create' course.pk section.pk %}">
                             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Add new task</button>
+                        </a>
+                        <a href="{% url 'courses:tasks' course.pk section.pk %}">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Manage tasks</button>
                         </a>
                         <a href="{% url 'courses:sections' course.pk %}">
                             <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Manage sections</button>
@@ -40,11 +43,11 @@
                                 <div class="ml-4 ">
                                     <h3 class="font-bold">{{ task.title }}</h3>
                                     <span class='text-gray-400 mt-2'>{{ task.task_type }}</span>
-                                    <p class="text-gray-600 mt-2">{{ task.description|truncatechars:150|default:"There's no course info"|safe }}</p>
+                                    <p class="text-gray-600 mt-2">{{ task.description|truncatechars:70|default:"There's no course info"|safe }}</p>
                                     <div class="flex justify-between items-center mt-4">
                                         <div class="flex items-center">
                                             <div>
-                                                <a href="{% url 'courses:course-task-detail' section.id task.slug %}">
+                                                <a href="{% url 'courses:task-detail' course.id section.id task.slug %}">
                                                     <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Learn</button>
                                                 </a>
                                             </div>
@@ -58,12 +61,12 @@
                                         {# move to the right side later #}
                                         <div class="flex items-center">
                                             <div>
-                                                <a href="#">
+                                                <a href="{% url 'courses:task-update' course.id section.id task.slug %}">
                                                     <button class="bg-yellow-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-yellow-700">Update Task</button>
                                                 </a>
                                             </div>
                                             <div>
-                                                <a href="#">
+                                                <a href="{% url 'courses:task-delete' course.id section.id task.slug %}">
                                                     <button class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-red-700">Delete Task</button>
                                                 </a>
                                             </div>

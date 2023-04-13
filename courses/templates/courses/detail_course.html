@@ -139,7 +139,7 @@
                                                         <path fill="none" d="M0 0h24v24H0z"></path>
                                                         </g>
                                                     </svg>
-                                                    <a href="{% url 'courses:course-task-detail' section.id task.slug %}"><span class="mb-2 text-lg font-semibold text-gray-700 hover:text-blue-500 dark:text-white">{{ task.title }}</span></a>
+                                                    <a href="{% url 'courses:task-detail' course.pk section.id task.slug %}"><span class="mb-2 text-lg font-semibold text-gray-700 hover:text-blue-500 dark:text-white">{{ task.title }}</span></a>
                                                 </div>
                                             {% endfor %}
                                         </ul>

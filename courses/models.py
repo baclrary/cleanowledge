@@ -46,26 +46,40 @@ class Section(models.Model):
 
 
 class Task(models.Model):
+    TASK_TYPE_CHOICES = (
+        ("article", "Article"),
+        ("video", "Video"),
+        ("link", "Link"),
+        ("assigment", "Assigment"),
+    )
     # I don't link it with course owner, because I will have other teachers create tasks
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    task_type = models.CharField(max_length=20)
+
+    task_type = models.CharField(max_length=20, choices=TASK_TYPE_CHOICES)
     title = models.CharField(max_length=120)
     slug = models.SlugField(null=False, blank=True)
-    description = RichTextField(max_length=10000)
+    description = RichTextField(max_length=100000, config_name="task_description")
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     # dead_line = models.DateTimeField(default=)
     active = models.BooleanField(default=True)
     task_files = models.FileField(blank=True)
-    members_can_attach_files = models.BooleanField(default=False)
-    members_attached_files = models.FileField(blank=True)
+    members_can_attach_files = models.BooleanField(blank=True)
+    members_files = models.FileField(blank=True)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
+        # Save the instance temporarily to generate the primary key (pk)
+        super().save(*args, **kwargs)
         self.slug = slugify(self.title + "-" + str(self.pk))
-        return super().save(*args, **kwargs)
+        # Save the instance again with the updated slug
+        super().save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title + "-" + str(self.pk))
+    #     return super().save(*args, **kwargs)
 
 
 class Goal(models.Model):

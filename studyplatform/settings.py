@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "crispy_tailwind",
     # 'django_browser_reload',
     "django_extensions",
+    'widget_tweaks',
+
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "studyplatform.wsgi.application"
+MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
 
 
 # Database
@@ -173,6 +176,30 @@ CKEDITOR_CONFIGS = {
         "removePlugins": ["elementspath", "resize"],
         "editorplaceholder": "Write short introduction to your course",
     },
+
+    "task_description": {
+        "toolbar": "Custom",
+        "toolbar_Custom": [
+            ["Bold", "Italic", "Underline"],
+            [
+                "NumberedList",
+                "BulletedList",
+                "-",
+                "Outdent",
+                "Indent",
+                "-",
+                "JustifyLeft",
+                "JustifyCenter",
+                "JustifyRight",
+                "JustifyBlock",
+            ],
+            ["Link", "Unlink"],
+            ["RemoveFormat", "Source"],
+        ],
+        "height": 700,
+        "width": 1100,
+    },
+
     "default": {
         "toolbar": "Custom",
         "toolbar_Custom": [
