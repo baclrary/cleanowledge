@@ -3,6 +3,7 @@
 {% block content %}
     <div class="bg-white rounded-lg shadow sm:mx-auto m-auto">
         <div class="container flex flex-col items-center justify-center w-full mx-auto bg-white rounded-lg shadow dark:bg-gray-800">
+            {% if sections %}
             <div class="w-full px-4 py-5 border-b sm:px-6">
                 <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                     Course sections
@@ -12,6 +13,7 @@
                 </p>
             </div>
             <ul class="flex flex-col divide-y divide">
+
                 {% for section in sections %}
                     <li class="flex flex-row">
                         <div class="flex items-center flex-1 p-4 cursor-pointer select-none">
@@ -52,7 +54,18 @@
                         </li>
                     </li>
                 {% endfor %}
-            <a href="{{request.META.HTTP_REFERER}}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2">Back to the course</a>
+            {% else %}
+            <div class="w-full px-4 py-5 border-b sm:px-6">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+                    There are no any sections
+                </h3>
+                <p class="max-w-2xl mt-1 text-sm text-gray-500 dark:text-gray-200">
+                    Try to add a new section now!
+                </p>
+            </div>
+                <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-4 mt-4">Add new section</a>
+            {% endif %}
+            <a href="{{request.META.HTTP_REFERER}}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 mb-4">Back to the course</a>
             </ul>
         </div>
     </div>
