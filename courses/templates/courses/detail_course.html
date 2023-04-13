@@ -245,11 +245,11 @@
                            class="bg-red-500 text-white py-2 px-4 rounded hover:bg-gray-900 transition-colors duration-300 capitalize">Leave course</a>
                     {% endif %}
                     {% if request.user == course.owner %}
-                        <a href="{% url 'courses:course-leave' course.pk %}"
+                        <a href="{% url 'courses:course-update' course.pk %}"
                            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors duration-300 mr-2 capitalize">Manage course</a>
                     {% endif %}
                     {% if request.user == course.owner %}
-                        <a href="#"
+                        <a href="{% url 'courses:course-delete' course.pk %}"
                            class="bg-red-500 text-white py-2 px-4 rounded hover:bg-gray-900 transition-colors duration-300 mt-6 mr-2 capitalize">Delete course</a>
                     {% endif %}
                 </div>
