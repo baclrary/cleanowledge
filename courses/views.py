@@ -7,8 +7,12 @@ from django.utils.text import slugify
 from django.views import generic
 
 from users.models import User
-from .forms import CourseCreateModelForm, SectionCreateForm
+from .forms import CourseCreateModelForm, CourseUpdateForm, SectionCreateForm
 from .models import Course, Section
+
+
+class TestTemplate(generic.TemplateView):
+    template_name = 'courses/edit_course.html'
 
 
 class HomePage(generic.TemplateView):
@@ -51,12 +55,17 @@ class CourseDetailView(generic.detail.DetailView):
 
 class CourseUpdateView(generic.UpdateView):
     model = Course
-    form_class = CourseCreateModelForm
+    form_class = CourseUpdateForm
     template_name = "courses/course_update.html"
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["course"] = get_object_or_404(Course, id=self.kwargs["pk"])
+        return context
 
 
 class CourseDeleteView(generic.DeleteView):

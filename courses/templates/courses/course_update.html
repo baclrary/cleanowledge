@@ -2,16 +2,56 @@
 {% load static %}
 {% load tailwind_filters %}
 {% block content %}
-    <div class="bg-white rounded-lg shadow sm:max-w-md sm:w-full sm:mx-auto sm:overflow-hidden mt-9">
-        <div class="px-4 py-8 sm:px-10">
-            <div class="heading text-center font-bold text-2xl m-5 text-gray-800">Update Section</div>
-            <form method="post" class="mt-5">
+    <div class="container mx-auto mt-10 ">
+        <div class="bg-white shadow-md rounded p-6 w-full lg:w-3/4 mx-auto sm:mx-auto">
+            <h2 class="text-xl font-bold mb-6">Edit Course</h2>
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form|crispy }}
-                <button type='submit'
-                        class="mt-4 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">Submit</button>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.title.id_for_label }}">
+                        Title
+                    </label>
+                    {{ form.title }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+                    {{ form.description }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.cover.id_for_label }}">
+                        Cover Image
+                    </label>
+                    {{ form.cover }}
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="{{ form.is_active.id_for_label }}">
+                        Active
+                    </label>
+                    {{ form.is_active }}
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit">
+                        Save
+                    </button>
+                    <a href="{% url 'courses:sections' course.pk %}">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                        Manage Sections
+                    </button></a>
+                    <a href="{% url 'courses:course-detail' course.pk %}">
+                    <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="button">
+                        Cancel
+                    </button></a>
+
+                </div>
             </form>
         </div>
+    </div>
+    </div>
     </div>
 {% endblock %}
 

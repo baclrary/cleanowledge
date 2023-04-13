@@ -17,9 +17,24 @@ class CourseCreateModelForm(forms.ModelForm):
             "is_active": "Activate",
         }
 
-        # widgets = {
-        #     'description': forms.Textarea(attrs={'placeholder': 'sds'})
-        # }
+
+class CourseUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Course
+        fields = ["title", "description", "cover", "is_active"]
+        labels = {
+            "is_active": "Activate",
+        }
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
+            'description': forms.Textarea(attrs={
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+                'rows': 4}),
+            'cover': forms.FileInput(attrs={
+                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'mt-1'}),
+        }
 
 
 class SectionForm(forms.ModelForm):
