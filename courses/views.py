@@ -1,15 +1,14 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 
 from users.models import User
-
-from .forms import CourseCreateModelForm, SectionForm, SectionCreateForm
-from .models import Course, Section, Task
+from .forms import CourseCreateModelForm, SectionCreateForm
+from .models import Course, Section
 
 
 class HomePage(generic.TemplateView):
@@ -24,6 +23,7 @@ class UpdatesPage(generic.TemplateView):
     template_name = "updates.html"
 
 
+# COURSE #
 class CourseListView(generic.list.ListView, LoginRequiredMixin):
     template_name = "courses/courses_list.html"
     context_object_name = "courses"
@@ -35,19 +35,12 @@ class CourseCreateView(generic.CreateView, LoginRequiredMixin):
     form_class = CourseCreateModelForm
 
     def form_valid(self, form):
-        instance = form.save(commit=False)
-        instance.user = self.request.user
-        instance.owner = self.request.user
-        # if form.is_valid():
-        instance.save()
-        self.product = instance
-        self.product.members.add(instance.owner)
-        self.product.teachers.add(instance.owner)
-        return HttpResponseRedirect(reverse("courses:course-detail", kwargs={"pk": self.product.pk}))
-
-
-class CourseCreateSuccess(generic.TemplateView):
-    template_name = "courses/create_course_success.html"
+        course = form.save(commit=False)
+        course.owner = self.request.user
+        course.save()
+        course.members.add(course.owner)
+        course.teachers.add(course.owner)
+        return super().form_valid(form)
 
 
 class CourseDetailView(generic.detail.DetailView):
@@ -56,100 +49,114 @@ class CourseDetailView(generic.detail.DetailView):
     model = Course
 
 
+class CourseUpdateView(generic.UpdateView):
+    model = Course
+    form_class = CourseCreateModelForm
+    template_name = "courses/course_update.html"
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
+
+class CourseDeleteView(generic.DeleteView):
+    model = Course
+    success_url = reverse_lazy("courses:courses")
+    template_name = "courses/course_confirm_delete.html"
+
+
 class CourseMembersDetailView(generic.detail.DetailView, LoginRequiredMixin):
     template_name = "courses/course_members.html"
     context_object_name = "course"
     model = Course
 
 
-# SECTIONS #
-class SectionListView(generic.ListView):
+# SECTION #
+
+class BaseSectionView:
+    def get_course(self):
+        if not hasattr(self, "_course"):
+            self._course = get_object_or_404(Course, id=self.kwargs["pk"])
+        return self._course
+
+
+class SectionListView(BaseSectionView, generic.ListView):
     model = Section
     context_object_name = "sections"
     template_name = "courses/section/sections_list.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        context["course"] = course
+        context["course"] = self.get_course()
         return context
 
     def get_queryset(self):
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
+        course = self.get_course()
         return course.sections.all()
 
 
-class SectionDetailView(generic.DetailView):
+class SectionDetailView(BaseSectionView, generic.DetailView):
     model = Section
     context_object_name = "section"
     template_name = "courses/section/section_detail.html"
-    # template_name = "courses/section/section_detail.html"
 
     def get_object(self):
         return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["course"] = self.object.course
+        context["course"] = self.get_course()
         return context
 
 
-class SectionCreateView(generic.CreateView):
+class SectionCreateView(BaseSectionView, generic.CreateView):
     model = Section
     form_class = SectionCreateForm
     template_name = "courses/section/section_create.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        context["course"] = course
+        context["course"] = self.get_course()
         return context
 
-    def get_queryset(self):
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        return course.sections.all()
-
     def form_valid(self, form):
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        form.instance.course = course
+        form.instance.course = self.get_course()
         form.instance.owner = self.request.user
         form.instance.slug = slugify(form.cleaned_data["title"])
         return super().form_valid(form)
 
 
-class SectionUpdateView(generic.UpdateView):
+class SectionUpdateView(BaseSectionView, generic.UpdateView):
     model = Section
     form_class = SectionCreateForm
     template_name = "courses/section/section_update.html"
 
+    def get_object(self):
+        return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
+
     def form_valid(self, form):
-        course = get_object_or_404(Course, id=self.kwargs["pk"])
-        form.instance.course = course
+        form.instance.course = self.get_course()
         form.instance.owner = self.request.user
         form.instance.slug = slugify(form.cleaned_data["title"])
         return super().form_valid(form)
 
-    def get_object(self):
-        return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["course"] = self.object.course
+        context["course"] = self.get_course()
         return context
 
 
-class SectionDeleteView(generic.DeleteView):
+class SectionDeleteView(BaseSectionView, generic.DeleteView):
     model = Section
-    success_url = reverse_lazy("courses:sections")
     template_name = "courses/section/section_confirm_delete.html"
 
-    # link 'cancel' button in template with a detail view
-    def get_object(self):
+    def get_object(self, queryset=None):
         return get_object_or_404(Section, course_id=self.kwargs["pk"], id=self.kwargs["spk"])
 
+    # link 'cancel' button in template with a detail view
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["course"] = self.object.course
+        context["course"] = self.get_course()
         return context
 
     def get_success_url(self):

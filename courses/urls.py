@@ -8,6 +8,8 @@ urlpatterns = [
     path("", views.CourseListView.as_view(), name="courses"),
     path("create/", views.CourseCreateView.as_view(), name="course-create"),
     path("<int:pk>/", views.CourseDetailView.as_view(), name="course-detail"),
+    path("<int:pk>/update", views.CourseUpdateView.as_view(), name="course-update"),
+    path("<int:pk>/delete", views.CourseDeleteView.as_view(), name="course-delete"),
     path("<int:pk>/members/", views.CourseMembersDetailView.as_view(), name="courses-members"),
     path("<int:pk>/enroll/", views.enroll_course, name="course-enroll"),
     path("<int:pk>/leave/", views.leave_course, name="course-leave"),
@@ -19,8 +21,5 @@ urlpatterns = [
     path("<int:pk>/sections/create/", views.SectionCreateView.as_view(), name="section-create"),
     path("<int:pk>/sections/<int:spk>/update/", views.SectionUpdateView.as_view(), name="section-update"),
     path("<int:pk>/sections/<int:spk>/delete/", views.SectionDeleteView.as_view(), name="section-delete"),
-    # path("<int:pk>/sections/<slug:slug>/", views.section_detail_view, name="course-section-detail"),
     path("<int:pk>/tasks/<slug:slug>/", views.task_detail_view, name="course-task-detail"),
-    #     path('course_create_success', views.CourseCreateSuccess.as_view(),
-    #          name='course-create-success')
 ]

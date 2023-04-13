@@ -24,6 +24,9 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("courses:course-detail", kwargs={"pk": self.pk})
+
 
 class Section(models.Model):
     # number_in_course = models.IntegerField()
