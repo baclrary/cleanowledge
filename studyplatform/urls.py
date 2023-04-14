@@ -27,4 +27,5 @@ urlpatterns = [
     path("courses/", include("courses.urls")),
     path("about/", AboutPage.as_view(), name="about"),
     path("updates/", UpdatesPage.as_view(), name="updates"),
+    path("", include("users.urls"), name="users"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
