@@ -56,6 +56,7 @@
                         </li>
                     </li>
                 {% endfor %}
+                <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded">Add a new section</a>
                 <a href="{% url 'courses:course-update' course.pk %}" class="bg-gray-600 hover:bg-gray-700 text-white text-center font-bold py-2 px-4 rounded">Back to the settings</a>
 
             {% else %}
