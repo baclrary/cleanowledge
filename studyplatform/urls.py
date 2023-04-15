@@ -29,4 +29,5 @@ urlpatterns = [
     path("about/", AboutPage.as_view(), name="about"),
     path("updates/", UpdatesPage.as_view(), name="updates"),
     path("", include("users.urls"), name="users"),
+    path("__debug__/", include("debug_toolbar.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

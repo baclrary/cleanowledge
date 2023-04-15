@@ -15,6 +15,7 @@ django-js-asset = "==2.0.0"
 sqlparse = "==0.4.3"
 tailwind = "==3.1.5b0"
 django-widget-tweaks = "==1.4.12"
+django-debug-toolbar = "==4.0.0"
 
 [dev-packages]
 black = "==23.3.0"
