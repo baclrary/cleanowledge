@@ -1,41 +1,45 @@
 <nav class="w-full border-b">
-  <div class="py-2 md:py-0 container mx-auto px-6 flex items-center justify-between">
-    <div aria-label="Home. logo" role="img">
-      <svg class="w-12 md:w-auto width="60px" height="60px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
-        <path d="M2 17.4L23.0222 9L44.0444 17.4L23.0222 25.8L2 17.4Z" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
-        <path d="M44.0444 17.5101V26.7333" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M11.5555 21.8253V34.2667C11.5555 34.2667 16.3656 39 23.0222 39C29.6788 39 34.4889 34.2667 34.4889 34.2667V21.8253" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <div class="py-2 md:py-0 container mx-auto px-6 flex items-center justify-between">
+        <div aria-label="Home. logo" role="img">
+            <svg class="w-12 md:w-auto" width="60px" height="60px" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="48" height="48" fill="white" fill-opacity="0.01"/>
+                <path d="M2 17.4L23.0222 9L44.0444 17.4L23.0222 25.8L2 17.4Z" fill="#2F88FF" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+                <path d="M44.0444 17.5101V26.7333" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M11.5555 21.8253V34.2667C11.5555 34.2667 16.3656 39 23.0222 39C29.6788 39 34.4889 34.2667 34.4889 34.2667V21.8253" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div>
+            <div id="menu" class="md:block lg:block hidden">
+                <ul class="flex text-3xl md:text-base items-center py-10 md:flex flex-col md:flex-row justify-center fixed md:relative top-0 bottom-0 left-0 right-0 bg-white md:bg-transparent z-20">
+                    <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0">
+                        <a href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
+                        <a href="{% url 'courses:courses' %}">Courses</a>
+                    </li>
+                    <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
+                        <a href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
+                        <a href="javascript: void(0)">Features</a>
+                    </li>
+                    <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
+                        <a href="{% url 'updates' %}">Update news</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="flex space-x-4">
+            <a href="{%  url 'sign-up' %}">
+                <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
+                    Sign up
+                </button>
+            </a>
+            <a href="{% url 'log-in' %}">
+                <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
+                    Log In
+                </button>
+            </a>
+        </div>
     </div>
-    <div>
-      <div id="menu" class="md:block lg:block hidden">
-        <ul class="flex text-3xl md:text-base items-center py-10 md:flex flex-col md:flex-row justify-center fixed md:relative top-0 bottom-0 left-0 right-0 bg-white md:bg-transparent z-20">
-          <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0">
-            <a href="{% url 'home' %}">Home</a>
-          </li>
-          <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-            <a href="{% url 'courses:courses' %}">Courses</a>
-          </li>
-          <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-            <a href="{% url 'about' %}">About</a>
-          </li>
-          <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-            <a href="javascript: void(0)">Features</a>
-          </li>
-          <li class="text-gray-700 hover:text-gray-900 cursor-pointer text-base lg:text-lg pt-10 md:pt-0 md:ml-5 lg:ml-10">
-            <a href="{% url 'updates' %}">Update news</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="flex space-x-4">
-      <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
-        Sign up
-      </button>
-      <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
-        Log In
-      </button>
-    </div>
-  </div>
 </nav>
