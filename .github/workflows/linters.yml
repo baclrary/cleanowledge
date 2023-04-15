@@ -2,7 +2,7 @@ name: Linters
 
 on:
   push:
-    branches: [lots-of-changes, master]
+    branches: [master]
     paths:
       - "**.py"
   workflow_dispatch:
