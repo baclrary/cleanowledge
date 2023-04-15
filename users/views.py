@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login
 from django.forms import ModelForm
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -16,5 +16,6 @@ class SignUpView(FormView):
     success_url = reverse_lazy("home")
 
     def form_valid(self, form: ModelForm) -> HttpResponse:
-        form.save()
+        user = form.save()
+        login(self.request, user)
         return super().form_valid(form)
