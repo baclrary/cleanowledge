@@ -56,7 +56,9 @@
                         </li>
                     </li>
                 {% endfor %}
-                <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded">Add a new section</a>
+                {% if request.user == course.owner or request.user in course.teachers.all %}
+                    <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded">Add a new section</a>
+                {% endif %}
                 <a href="{% url 'courses:course-update' course.pk %}" class="bg-gray-600 hover:bg-gray-700 text-white text-center font-bold py-2 px-4 rounded">Back to the settings</a>
 
             {% else %}
@@ -68,7 +70,9 @@
                     Try to add a new section now!
                 </p>
             </div>
-                <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-4 mt-4">Add new section</a>
+                {% if request.user == course.owner or request.user in course.teachers.all %}
+                    <a href="{% url 'courses:section-create' course.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2 mb-4 mt-4">Add new section</a>
+                {% endif %}
                 <a href="{% url 'courses:course-update' course.pk %}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2 mb-4">Back to the settings</a>
 
             {% endif %}
