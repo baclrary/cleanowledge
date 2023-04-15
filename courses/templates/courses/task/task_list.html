@@ -56,7 +56,9 @@
                         </li>
                     </li>
                 {% endfor %}
-{#                <a href="{% url 'courses:course-update' course.pk %}" class="bg-gray-600 hover:bg-gray-700 text-white text-center font-bold py-2 px-4 rounded">Back to the settings</a>#}
+
+                <a href="{% url 'courses:task-create' section.course.pk section.pk %}" class="bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded">Add a new task</a>
+                <a href="{% url 'courses:course-update' section.course.pk %}" class="bg-gray-600 hover:bg-gray-700 text-white text-center font-bold py-2 px-4 rounded">Back to the settings</a>
 
             {% else %}
             <div class="w-full px-4 py-5 border-b sm:px-6">
