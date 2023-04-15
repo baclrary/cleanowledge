@@ -5,15 +5,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('courses', '0020_rename_members_attached_files_task_members_files_and_more'),
+        ("courses", "0020_rename_members_attached_files_task_members_files_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='description',
+            model_name="task",
+            name="description",
             field=ckeditor.fields.RichTextField(max_length=100000),
         ),
     ]

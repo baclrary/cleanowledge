@@ -1,8 +1,6 @@
 from ckeditor.widgets import CKEditorWidget
 from django import forms
 
-from users.models import User
-
 from .models import Course, Section, Task
 
 
@@ -26,14 +24,23 @@ class CourseUpdateForm(forms.ModelForm):
             "is_active": "Activate",
         }
         widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
-            'description': forms.Textarea(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                'rows': 4}),
-            'cover': forms.FileInput(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'mt-1'}),
+            "title": forms.TextInput(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                    "rows": 4,
+                }
+            ),
+            "cover": forms.FileInput(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                }
+            ),
+            "is_active": forms.CheckboxInput(attrs={"class": "mt-1"}),
         }
 
 
@@ -53,22 +60,36 @@ class TaskForm(forms.ModelForm):
     # iterable
     class Meta:
         model = Task
-        fields = ["task_type", 'title', 'description', 'active',
-                  'task_files',
-                  'members_can_attach_files',
-                  'members_files', ]
+        fields = [
+            "task_type",
+            "title",
+            "description",
+            "active",
+            "task_files",
+            "members_can_attach_files",
+            "members_files",
+        ]
 
         # widgets = {
         #     'description': forms.Textarea(attrs={'rows': 5}),
         # }
 
         widgets = {
-            'title': forms.TextInput(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
-            'description': forms.Textarea(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-                'rows': 4}),
-            'cover': forms.FileInput(attrs={
-                'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
-            'is_active': forms.CheckboxInput(attrs={'class': 'mt-1'}),
+            "title": forms.TextInput(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                }
+            ),
+            "description": forms.Textarea(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline",
+                    "rows": 4,
+                }
+            ),
+            "cover": forms.FileInput(
+                attrs={
+                    "class": "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                }
+            ),
+            "is_active": forms.CheckboxInput(attrs={"class": "mt-1"}),
         }

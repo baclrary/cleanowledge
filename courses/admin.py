@@ -2,8 +2,6 @@ from django.contrib import admin
 
 from .models import Course, Goal, Section, Task
 
-# Register your models here.
-
 
 class CourseAdmin(admin.ModelAdmin):
     readonly_fields = ("created_date", "updated_date")

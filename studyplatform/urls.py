@@ -20,6 +20,7 @@ from django.urls import include, path
 
 from courses.views import AboutPage, HomePage, UpdatesPage
 
+
 urlpatterns = [
     path("ckeditor/", include("ckeditor_uploader.urls")),
     path("admin/", admin.site.urls),

@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,8 +49,7 @@ INSTALLED_APPS = [
     "crispy_tailwind",
     # 'django_browser_reload',
     "django_extensions",
-    'widget_tweaks',
-
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -81,7 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "studyplatform.wsgi.application"
-MESSAGE_STORAGE = 'django.contrib.messages.storage.fallback.FallbackStorage'
+MESSAGE_STORAGE = "django.contrib.messages.storage.fallback.FallbackStorage"
 
 
 # Database
@@ -176,7 +176,6 @@ CKEDITOR_CONFIGS = {
         "removePlugins": ["elementspath", "resize"],
         "editorplaceholder": "Write short introduction to your course",
     },
-
     "task_description": {
         "toolbar": "Custom",
         "toolbar_Custom": [
@@ -199,7 +198,6 @@ CKEDITOR_CONFIGS = {
         "height": 700,
         "width": 1100,
     },
-
     "default": {
         "toolbar": "Custom",
         "toolbar_Custom": [

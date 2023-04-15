@@ -1,23 +1,21 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
 
 from users.models import User
+
 from .forms import CourseCreateModelForm, CourseUpdateForm, SectionCreateForm, TaskForm
 from .models import Course, Section, Task
 
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
-
-from django.contrib.messages.middleware import MessageMiddleware
-
 
 class TestTemplate(generic.TemplateView):
-    template_name = 'courses/test.html'
+    template_name = "courses/test.html"
 
 
 class HomePage(generic.TemplateView):
@@ -89,6 +87,7 @@ class CourseMembersDetailView(generic.detail.DetailView, LoginRequiredMixin):
 
 
 # SECTION #
+
 
 class BaseSectionView:
     def get_course(self):
@@ -177,15 +176,16 @@ class SectionDeleteView(BaseSectionView, generic.DeleteView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('courses:sections', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy("courses:sections", kwargs={"pk": self.kwargs["pk"]})
 
 
 # Task #
 
+
 class TaskListView(LoginRequiredMixin, generic.ListView):
     model = Task
-    context_object_name = 'tasks'
-    template_name = 'courses/task/task_list.html'
+    context_object_name = "tasks"
+    template_name = "courses/task/task_list.html"
 
     def get_section(self):
         return get_object_or_404(Section, id=self.kwargs["spk"])
@@ -203,8 +203,8 @@ class TaskListView(LoginRequiredMixin, generic.ListView):
 class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     model = Task
     form_class = TaskForm
-    template_name = 'courses/task/task_create.html'
-    success_message = 'Task created successfully'
+    template_name = "courses/task/task_create.html"
+    success_message = "Task created successfully"
 
     def get_section(self):
         if not hasattr(self, "_section"):
@@ -228,42 +228,45 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView
         return context
 
     def get_success_url(self):
-        return reverse_lazy('courses:section-detail', kwargs={'pk': self.kwargs['pk'], 'spk': self.kwargs['spk']})
+        return reverse_lazy("courses:section-detail", kwargs={"pk": self.kwargs["pk"], "spk": self.kwargs["spk"]})
 
 
 class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, generic.UpdateView):
     model = Task
     form_class = TaskForm
-    template_name = 'courses/task/task_update.html'
-    success_message = 'Task updated successfully'
+    template_name = "courses/task/task_update.html"
+    success_message = "Task updated successfully"
 
     def get_object(self, queryset=None):
-        section_pk = self.kwargs.get('spk')
-        task_slug = self.kwargs.get('slug')
+        section_pk = self.kwargs.get("spk")
+        task_slug = self.kwargs.get("slug")
         section = get_object_or_404(Section, id=section_pk)
         task = get_object_or_404(section.tasks, slug=task_slug)
         return task
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        section_pk = self.kwargs.get('spk')
+        section_pk = self.kwargs.get("spk")
         section = get_object_or_404(Section, id=section_pk)
-        context['section'] = section
+        context["section"] = section
         return context
 
     def get_success_url(self):
-        return reverse_lazy('courses:task-detail', kwargs={'pk': self.kwargs['pk'], 'spk': self.kwargs['spk'], 'slug': self.kwargs['slug']})
+        return reverse_lazy(
+            "courses:task-detail",
+            kwargs={"pk": self.kwargs["pk"], "spk": self.kwargs["spk"], "slug": self.kwargs["slug"]},
+        )
 
 
 class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Task
-    template_name = 'courses/task/task_confirm_delete.html'
+    template_name = "courses/task/task_confirm_delete.html"
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Task, slug=self.kwargs['slug'])
+        return get_object_or_404(Task, slug=self.kwargs["slug"])
 
     def get_section(self, queryset=None):
-        return get_object_or_404(Section, id=self.kwargs['spk'])
+        return get_object_or_404(Section, id=self.kwargs["spk"])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -271,7 +274,7 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('courses:section-detail', kwargs={'pk': self.kwargs['pk'], 'spk': self.kwargs['spk']})
+        return reverse_lazy("courses:section-detail", kwargs={"pk": self.kwargs["pk"], "spk": self.kwargs["spk"]})
 
     def delete(self, request, *args, **kwargs):
         response = super().delete(request, *args, **kwargs)
@@ -288,21 +291,21 @@ class TaskDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class TaskDetailView(LoginRequiredMixin, generic.DetailView):
     model = Task
-    context_object_name = 'task'
-    template_name = 'courses/task/task_article_detail.html'
+    context_object_name = "task"
+    template_name = "courses/task/task_article_detail.html"
 
     def get_object(self, queryset=None):
-        section_pk = self.kwargs.get('spk')
-        task_slug = self.kwargs.get('slug')
+        section_pk = self.kwargs.get("spk")
+        task_slug = self.kwargs.get("slug")
         section = get_object_or_404(Section, id=section_pk)
         task = get_object_or_404(section.tasks, slug=task_slug)
         return task
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        section_pk = self.kwargs.get('spk')
+        section_pk = self.kwargs.get("spk")
         section = get_object_or_404(Section, id=section_pk)
-        context['section'] = section
+        context["section"] = section
         return context
 
 
@@ -353,6 +356,7 @@ def remove_member(request, pk, mpk):
     course.members.remove(member)
 
     return HttpResponse(f"Student {member} was expelled")
+
 
 # def ban_member(request, pk, spk):
 #     course = Course.objects.get(pk=pk)

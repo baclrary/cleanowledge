@@ -33,7 +33,7 @@ class Section(models.Model):
 
     # I don't link it with course owner, because I will have other teachers create sections
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='sections')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="sections")
     title = models.CharField(max_length=120)
     tasks = models.ManyToManyField("Task", blank=True)
     slug = models.SlugField(null=False)
@@ -83,7 +83,7 @@ class Task(models.Model):
 
 
 class Goal(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='goals')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="goals")
     title = models.CharField(max_length=250)
     text = models.TextField(max_length=1000, blank=True)
 
