@@ -8,6 +8,7 @@ My own study platform project built with Django
 - [Installation](#installation)
 - [Configuration](#configuration)
   * [Change environment](#change-environment)
+  * [Add pre-commit hooks](#add-pre-commit-hooks)
 - [Usage](#usage)
 
 ## Installation
