@@ -6,6 +6,7 @@ from django.views.generic import FormView
 
 from . import forms
 
+
 User = get_user_model()
 
 
