@@ -35,6 +35,14 @@ DJANGO_SETTINGS_MODULE=studyplatform.settings
 DJANGO_SETTINGS_MODULE=studyplatform.dev_settings
 ```
 
+### Add pre-commit hooks
+
+Run the following command to add pre-commit hooks:
+```bash
+pipenv run pre-commit install
+```
+> **_NOTE:_** dev dependencies should be installed for this to work properly
+
 ## Usage
 
 Start server:
