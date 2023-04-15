@@ -1,7 +1,14 @@
 # Cleanowledge
 
+[![Linters](https://github.com/baclrary/cleanowledge/actions/workflows/linters.yml/badge.svg)](https://github.com/baclrary/cleanowledge/actions/workflows/linters.yml)
+
 My own study platform project built with Django
 
+## Table of Contents
+- [Installation](#installation)
+- [Configuration](#configuration)
+  * [Change environment](#change-environment)
+- [Usage](#usage)
 
 ## Installation
 
