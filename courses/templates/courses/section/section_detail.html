@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block content %}
+    <body class="bg-gray-100">
+        <main class="container mx-auto py-8 px-4">
+            <div class="md:flex">
+                <div class="md:w-1/4">
+                    <h2 class="text-lg font-bold mb-4">Course Sections</h2>
+                    <ul class="border border-gray-400 rounded-lg divide-y divide-gray-400">
+                        {% for sec in course.sections.all %}
+                            <li class="pl-4 py-4">
+                                {% url 'courses:section-detail' course.id sec.id as url %}
+                                <a href="{{ url }}"
+                                   class="{% if request.path == url %} font-bold text-blue-600 hover:text-blue-900 {% else %} text-blue-600 hover:text-blue-900 {% endif %}">Section {{ forloop.counter }}: {{ sec }}</a>
+                            </li>
+                        {% endfor %}
+                        <li class="pl-4 py-4">
+                            <a href="{% url 'courses:course-detail' course.id %}"
+                               class="text-black-600 hover:text-red-900">Back to the course</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="md:w-3/4 md:ml-8">
+                    <h2 class="text-2xl font-bold">{{ section.title }}: Tasks</h2>
+                    {% if course.owner == request.user or task.owner == request.user %}
+                    <div class="bg-gray-100 p-4 rounded mb-2 mt-1">
+                        <a href="{% url 'courses:task-create' course.pk section.pk %}">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Add new task</button>
+                        </a>
+                        <a href="{% url 'courses:tasks' course.pk section.pk %}">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Manage tasks</button>
+                        </a>
+                        <a href="{% url 'courses:sections' course.pk %}">
+                            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Manage sections</button>
+                        </a>
+                    </div>
+                    {% endif %}
+                    <ul class="space-y-4 ">
+                        {% for task in section.tasks.all %}
+                            <li class="border border-gray-400 rounded-lg py-4 px-6 flex items-start ">
+                                <div class="bg-blue-500 rounded-full h-6 w-14 flex items-center justify-center">
+                                    <span class="text-white font-bold text-sm">{{ section.id }}.{{ forloop.counter }}</span>
+                                </div>
+                                <div class="ml-4 ">
+                                    <h3 class="font-bold">{{ task.title }}</h3>
+                                    <span class='text-gray-400 mt-2'>{{ task.task_type }}</span>
+                                    <p class="text-gray-600 mt-2">{{ task.description|truncatechars:70|default:"There's no course info"|safe }}</p>
+                                    <div class="flex justify-between items-center mt-4">
+                                        <div class="flex items-center">
+                                            <div>
+                                                <a href="{% url 'courses:task-detail' course.id section.id task.slug %}">
+                                                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-blue-400">Learn</button>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <button class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-green-400">
+                                                    Mark as Complete
+                                                </button>
+                                            </div>
+                                        </div>
+                                        {% if course.owner == request.user or task.owner == request.user %}
+                                        {# move to the right side later #}
+                                        <div class="flex items-center">
+                                            <div>
+                                                <a href="{% url 'courses:task-update' course.id section.id task.slug %}">
+                                                    <button class="bg-yellow-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-yellow-700">Update Task</button>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <a href="{% url 'courses:task-delete' course.id section.id task.slug %}">
+                                                    <button class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-md ml-4 hover:bg-red-700">Delete Task</button>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock content %}
+{% comment %} <li class="border border-gray-400 rounded-lg py-4 px-6 flex items-start">
+    <div class="container mx-auto px-4 py-8">
+        <div class="md:flex md:justify-between md:items-center mb-8">
+            <h1 class="text-2xl font-bold">{{ section.title }}</h1>
+            <a href="#" class="text-gray-500 hover:text-gray-700">Back to course</a>
+        </div>
+        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {% for task in section.tasks.all %}
+                <li class="p-4 bg-white rounded-lg shadow">
+                    <div class="flex items-center mb-2">
+                        <span class="inline-block bg-indigo-500 text-white font-bold rounded-full text-center w-6 h-6 mr-2">{{ task.number }}</span>
+                        <h2 class="text-lg font-bold">{{ task.title }}</h2>
+                    </div>
+                    <p class="text-gray-700 leading-loose">{{ task.description }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+</li> {% endcomment %}

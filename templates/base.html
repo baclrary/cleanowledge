@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Study</title>
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <meta name="author" content="">
+        <link href="{% static 'css/main.css' %}" rel="stylesheet" />
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+              rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        {% comment %} Stand with Ukraine {% endcomment %}
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/stand-with-ukraine/dist/styles.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/stand-with-ukraine/dist/scripts/basic.js"
+                swu-type="banner"
+                swu-text="We support Ukraine"
+                swu-dark-theme="false"
+                swu-bannerColor='#000000'
+                swu-container-element-selector="#header"
+                defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/stand-with-ukraine/dist/scripts/basic.js"
+                swu-type="ribbon"
+                swu-text="We support Ukraine"
+                defer></script>
+        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+        <script type="text/javascript"
+                src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+
+    </head>
+    {% comment %} {% include 'banner.html' %} {% endcomment %}
+    {% include 'navbar.html' %}
+    <body class='flex flex-col min-h-screen bg-gray-100'>
+        {% include 'messages.html' %}
+
+        {% block content %}
+        {% endblock content %}
+        {% include 'footer.html' %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    const messages = document.querySelectorAll('.fixed div');
+                    messages.forEach(function(message) {
+                        message.style.display = 'none';
+                    });
+                }, 3000);
+            });
+        </script>
+    </body>
+</html>
