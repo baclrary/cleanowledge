@@ -57,7 +57,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        {% if course.owner == request.user or task.owner == request.user %}
+                                        {% if request.user == course.owner or request.user in course.teachers.all %}
                                         {# move to the right side later #}
                                         <div class="flex items-center">
                                             <div>
