@@ -29,8 +29,8 @@
                 </ul>
             </div>
         </div>
-        {% if not user.is_authenticated %}
-            <div class="flex space-x-4">
+        <div class="flex space-x-4">
+            {% if not user.is_authenticated %}
                 <a href="{%  url 'sign-up' %}">
                     <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
                         Sign up
@@ -41,7 +41,13 @@
                         Log In
                     </button>
                 </a>
-            </div>
-        {% endif %}
+            {% else %}
+                <a href="{% url 'log-out' %}">
+                    <button class="focus:outline-none lg:text-lg lg:font-bold focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hidden md:block bg-transparent transition duration-150 ease-in-out hover:bg-gray-200 rounded border border-blue-500 text-blue-500 px-4 sm:px-4 py-1 sm:py-3 text-sm">
+                        Log out
+                    </button>
+                </a>
+            {% endif %}
+        </div>
     </div>
 </nav>
