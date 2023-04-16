@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model, login
 from django.forms import ModelForm
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView
+from django.views.generic import DetailView, FormView
 
 from . import forms
 
@@ -33,3 +33,9 @@ class SignUpView(FormView):
                 )
             return HttpResponseRedirect(redirect_to)
         return super().dispatch(request, *args, **kwargs)
+
+
+class ProfileView(DetailView):
+    template_name = "profile.html"
+    context_object_name = "profile"
+    model = User
